@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'robot/cli'
+Robot::Cli.new(file_name: ARGV[0].dup).call

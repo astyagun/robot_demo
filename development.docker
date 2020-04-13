@@ -1,0 +1,29 @@
+FROM ruby:2.7.1
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    less \
+  && rm -rf /var/lib/apt/lists/*
+
+# Reasons for installing packages
+# - less: better pager, for Pry in particular, but not only
+
+RUN adduser --disabled-password --gecos '' app
+USER app
+
+RUN bundle config set jobs $(nproc --ignore=1)
+
+# Setup the Solargraph LSP server for code autocompletion and navigation
+RUN gem install solargraph && solargraph download-core
+# For the "Go to definition" feature: make gems available on the host matchine
+RUN bundle config set path vendor/bundle
+# Allow running bundled gems executables without using `bundle exec`
+ENV GEM_PATH=/usr/src/app/vendor/bundle/ruby/2.7.0:/usr/local/lib/ruby/gems/2.7.0:/usr/local/bundle
+ENV PATH=./exe:/usr/src/app/vendor/bundle/ruby/2.7.0/bin:$PATH
+
+# Allow running `exe/robot` without installing the gem
+ENV RUBYLIB=/usr/src/app/lib
+
+WORKDIR /usr/src/app
+
+CMD ["tail", "-f", "/dev/null"]

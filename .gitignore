@@ -1,0 +1,28 @@
+# Local configuration
+/.docker.env
+/.env
+/.haml-lint.yml
+/.reek
+/.rubocop.yml
+/.yardoc
+
+# IDEs
+*.swo
+*.swp
+
+# Local Ruby environment
+/.docker-sync
+/vendor/bundle
+
+# Logfiles and tempfiles
+!/log/.keep
+!/tmp/.keep
+.byebug_history
+/coverage
+/log/*
+/pkg/*
+/spec/examples.txt
+/tmp/*
+
+# Other
+.DS_Store

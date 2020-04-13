@@ -1,0 +1,18 @@
+---
+version: '2'
+syncs:
+  robot_code:
+    src: .
+    sync_userid: 1000
+    sync_groupid: 1000
+    # Unison path specification:
+    # http://www.cis.upenn.edu/~bcpierce/unison/download/releases/stable/unison-manual.html#pathspec
+    sync_args:
+      - "-ignore='Name .*.swo'"
+      - "-ignore='Name .*.swp'"
+      - "-ignore='Name .git'"           # Ignore .git repos in subfolders such as in composer vendor dirs
+      - "-ignore='Name .gitignore'"
+      - "-ignore='Path .docker-sync'"
+      - "-ignore='Path .git'"           # Ignore the main .git repo
+      - "-ignore='Path log'"
+      - "-ignore='Path tmp/cache'"
